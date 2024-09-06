@@ -4,78 +4,65 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code '
-    
+                echo 'Stage 1: Build - Building the code using Maven...'
+                // Example task description: Build the code using Maven.
+                echo 'Tool: Maven (for Java projects)'
+                echo 'Command: mvn clean install'
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-              sh  echo 'Running Unit and Integration tests...'
+                echo 'Stage 2: Unit and Integration Tests - Running unit and integration tests...'
+                // Example task description: Run unit and integration tests.
+                echo 'Tools: JUnit for unit tests, Selenium for integration tests'
+                echo 'Commands: mvn test for JUnit, selenium run for integration tests'
             }
         }
 
         stage('Code Analysis') {
             steps {
-               sh echo 'Performing code analysis...'
-            
+                echo 'Stage 3: Code Analysis - Performing code analysis...'
+                // Example task description: Analyze the code for quality standards.
+                echo 'Tool: SonarQube'
+                echo 'Command: sonar-scanner'
+            }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Running security scan ...'
+                echo 'Stage 4: Security Scan - Running security scan...'
+                // Example task description: Perform a security scan to identify vulnerabilities.
+                echo 'Tool: OWASP Dependency Check'
+                echo 'Command: dependency-check.sh'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to staging environment '
-                // Task: Deploy the application to the staging server.
-                // Tool: AWS CLI (for deploying to an AWS EC2 instance)
-                // e.g., aws deploy
+                echo 'Stage 5: Deploy to Staging - Deploying the application to the staging server...'
+                // Example task description: Deploy the app to a staging environment.
+                echo 'Tool: AWS CLI'
+                echo 'Command: aws deploy'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running integration tests on staging environment...'
-                // Task: Run integration tests to ensure the application functions as expected in a production-like environment.
-                // Tools: Selenium for UI tests, Postman for API tests.
-                // e.g., postman run
+                echo 'Stage 6: Integration Tests on Staging - Running integration tests in staging...'
+                // Example task description: Run integration tests on the staging environment.
+                echo 'Tools: Selenium for UI testing, Postman for API testing'
+                echo 'Commands: selenium run, postman run'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to production '
-                // Task: Deploy the application to the production server.
-                // Tool: AWS CLI or Kubernetes (for production deployments)
-                // e.g., aws deploy or kubectl apply
+                echo 'Stage 7: Deploy to Production - Deploying the application to production...'
+                // Example task description: Deploy the app to the production environment.
+                echo 'Tool: AWS CLI or Kubernetes'
+                echo 'Command: kubectl apply for Kubernetes, or aws deploy for EC2'
             }
         }
     }
-
-    post {
-        always {
-            echo 'Sending email notifications...'
-            // Task: Send email notifications at the end of test and security scan stages.
-            // Tool: Jenkins Email Extension Plugin
-            // Configuration: Send email with the build logs as attachment
-        }
-
-        success {
-            mail to: 'minhtriet16032019@gmail.com',
-                 subject: "SUCCESS: Build #${env.BUILD_NUMBER}",
-                 body: "The build was successful! Check the attached logs for details.",
-                 attachLog: true
-        }
-
-        failure {
-            mail to: 'minhtriet16032019@gmail.com',
-                 subject: "FAILURE: Build #${env.BUILD_NUMBER}",
-                 body: "The build has failed. Please review the logs for details.",
-                 attachLog: true
-        }
-    }
 }
-
