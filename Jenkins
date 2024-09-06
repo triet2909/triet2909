@@ -4,43 +4,32 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code using Maven...'
-                // Task: Build the code using a build automation tool to compile and package your code.
-                // Tool: Maven
-                // e.g., mvn clean install
+                echo 'Building the code '
+    
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Running Unit and Integration tests...'
-                // Task: Run unit tests to ensure the code functions as expected and run integration tests.
-                // Tools: JUnit for unit tests, Selenium for integration tests.
-                // e.g., mvn test
+              sh  echo 'Running Unit and Integration tests...'
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo 'Performing code analysis with SonarQube...'
-                // Task: Analyze the code to ensure it meets industry standards.
-                // Tool: SonarQube (for static code analysis)
-                // e.g., sonar-scanner for Jenkins integration
-            }
+               sh echo 'Performing code analysis...'
+            
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Running security scan using OWASP Dependency Check...'
-                // Task: Perform a security scan to identify any vulnerabilities.
-                // Tool: OWASP Dependency Check
-                // e.g., dependency-check.sh
+                echo 'Running security scan ...'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to staging environment on AWS EC2...'
+                echo 'Deploying to staging environment '
                 // Task: Deploy the application to the staging server.
                 // Tool: AWS CLI (for deploying to an AWS EC2 instance)
                 // e.g., aws deploy
@@ -58,7 +47,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying the application to production on AWS EC2...'
+                echo 'Deploying the application to production '
                 // Task: Deploy the application to the production server.
                 // Tool: AWS CLI or Kubernetes (for production deployments)
                 // e.g., aws deploy or kubectl apply
